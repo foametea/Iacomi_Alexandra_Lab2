@@ -21,5 +21,15 @@ namespace Iacomi_Alexandra_Lab2.Data
         public DbSet<Iacomi_Alexandra_Lab2.Models.Author>? Authors { get; set; }
 
         public DbSet<Iacomi_Alexandra_Lab2.Models.Category>? Category { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Book>()
+                .HasOne(b => b.Borrowing)
+                .WithOne(b => b.Book)
+                .HasForeignKey<Borrowing>(b => b.BookID);
+        }
+        public DbSet<Iacomi_Alexandra_Lab2.Models.Member>? Member { get; set; }
+        public DbSet<Iacomi_Alexandra_Lab2.Models.Borrowing>? Borrowing { get; set; }
     }
 }
