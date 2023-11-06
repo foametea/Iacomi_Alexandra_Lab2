@@ -20,17 +20,49 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Category) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Category)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a> |
+                    <a asp-page="./Index" asp-route-id="@item.ID">Select</a> 
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@if (Model.BooksInCategory != null && Model.BooksInCategory.Any())
+{
+    <h3>Books in Selected Category</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Author
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model.BooksInCategory)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => book.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => book.Author.AuthorName) @Html.DisplayFor(modelItem => book.Author.AuthorLastName)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
